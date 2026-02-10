@@ -1,5 +1,5 @@
 ---
-title: Ghid pentru aventuri off-road
+title: Ghid pentru aventuri off-road - Road of no road
 slug: ghid-off-road
 cover: /src/assets/gallery-4x4-adventure.jpg
 seoTitle: Ghid pentru aventuri off-road în Valea Jiului
