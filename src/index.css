@@ -1,0 +1,312 @@
+/* Descoperă Valea - Editorial Nature Design System */
+/* Inspired by Kinfolk, Cereal Magazine - calm, editorial, nature-focused */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Core palette - warm, earthy, nature-inspired */
+    --background: 40 20% 98%;
+    --foreground: 30 10% 15%;
+
+    --card: 40 15% 96%;
+    --card-foreground: 30 10% 15%;
+
+    --popover: 40 20% 98%;
+    --popover-foreground: 30 10% 15%;
+
+    /* Forest green - primary brand */
+    --primary: 150 25% 25%;
+    --primary-foreground: 40 20% 98%;
+
+    /* Warm stone - secondary */
+    --secondary: 35 15% 90%;
+    --secondary-foreground: 30 10% 25%;
+
+    /* Muted earth tones */
+    --muted: 35 10% 92%;
+    --muted-foreground: 30 8% 45%;
+
+    /* Accent - warm terracotta */
+    --accent: 25 35% 85%;
+    --accent-foreground: 25 40% 25%;
+
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 35 15% 88%;
+    --input: 35 15% 88%;
+    --ring: 150 25% 25%;
+
+    --radius: 0.25rem;
+
+    /* Typography scale */
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Inter', system-ui, sans-serif;
+
+    /* Spacing rhythm */
+    --space-section: 8rem;
+    --space-content: 4rem;
+
+    /* Editorial transitions */
+    --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Sidebar (inherited) */
+    --sidebar-background: 40 15% 96%;
+    --sidebar-foreground: 30 10% 25%;
+    --sidebar-primary: 150 25% 25%;
+    --sidebar-primary-foreground: 40 20% 98%;
+    --sidebar-accent: 35 15% 90%;
+    --sidebar-accent-foreground: 30 10% 25%;
+    --sidebar-border: 35 15% 88%;
+    --sidebar-ring: 150 25% 25%;
+  }
+
+  .dark {
+    /* Deep forest night palette */
+    --background: 200 15% 8%;
+    --foreground: 40 15% 92%;
+
+    --card: 200 12% 12%;
+    --card-foreground: 40 15% 92%;
+
+    --popover: 200 15% 10%;
+    --popover-foreground: 40 15% 92%;
+
+    /* Sage green - lighter for dark mode */
+    --primary: 150 20% 60%;
+    --primary-foreground: 200 15% 8%;
+
+    /* Warm slate */
+    --secondary: 200 10% 18%;
+    --secondary-foreground: 40 12% 85%;
+
+    /* Muted forest */
+    --muted: 200 10% 15%;
+    --muted-foreground: 40 8% 55%;
+
+    /* Warm accent */
+    --accent: 30 20% 20%;
+    --accent-foreground: 35 25% 80%;
+
+    --destructive: 0 50% 40%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 200 10% 18%;
+    --input: 200 10% 18%;
+    --ring: 150 20% 60%;
+
+    --sidebar-background: 200 12% 10%;
+    --sidebar-foreground: 40 12% 85%;
+    --sidebar-primary: 150 20% 60%;
+    --sidebar-primary-foreground: 200 15% 8%;
+    --sidebar-accent: 200 10% 18%;
+    --sidebar-accent-foreground: 40 12% 85%;
+    --sidebar-border: 200 10% 18%;
+    --sidebar-ring: 150 20% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    line-height: 1.7;
+  }
+
+  /* Editorial typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  h1 {
+    @apply text-4xl md:text-6xl lg:text-7xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  p {
+    @apply text-base md:text-lg;
+    max-width: 65ch;
+  }
+
+  /* Editorial link style */
+  a {
+    transition: color var(--transition-fast);
+  }
+
+  /* Image treatments */
+  img {
+    @apply transition-all duration-500;
+  }
+}
+
+@layer components {
+  /* Editorial container */
+  .container-editorial {
+    @apply mx-auto px-6 md:px-12 lg:px-20;
+    max-width: 1600px;
+  }
+
+  /* Section spacing */
+  .section-space {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  /* Hero video container */
+  .hero-video-wrapper {
+    @apply relative w-full overflow-hidden rounded-xl;
+    aspect-ratio: 16/9;
+  }
+
+  @media (max-width: 768px) {
+    .hero-video-wrapper {
+      aspect-ratio: 9/16;
+      max-height: 85vh;
+    }
+  }
+
+  /* Editorial caption style */
+  .caption {
+    @apply text-xs md:text-sm tracking-widest uppercase;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* Image hover lift */
+  .image-hover {
+    @apply transition-all duration-500 ease-out;
+  }
+
+  .image-hover:hover {
+    @apply scale-[1.02];
+    filter: brightness(1.05);
+  }
+
+  /* Smooth fade in animation */
+  .fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Stagger children animation */
+  .stagger-children > * {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+  .stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+
+  /* Gallery grid */
+  .gallery-grid {
+    @apply grid gap-6;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  @media (min-width: 1024px) {
+    .gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Blog article card */
+  .article-card {
+    @apply block;
+  }
+
+  .article-card h3 {
+    @apply transition-colors duration-300;
+  }
+
+  .article-card:hover h3 {
+    @apply text-primary;
+  }
+
+  /* Back to top button */
+  .back-to-top {
+    @apply fixed bottom-6 right-6 z-50 p-3 rounded-full bg-card/80 backdrop-blur-sm border border-border;
+    @apply opacity-0 translate-y-4 pointer-events-none;
+    @apply transition-all duration-300;
+  }
+
+  .back-to-top.visible {
+    @apply opacity-100 translate-y-0 pointer-events-auto;
+  }
+
+  .back-to-top:hover {
+    @apply bg-card scale-105;
+  }
+
+  /* Lightbox overlay */
+  .lightbox-overlay {
+    @apply fixed inset-0 z-50 bg-background/95 backdrop-blur-md;
+    @apply flex items-center justify-center p-4 md:p-8;
+  }
+
+  /* Video list item */
+  .video-item {
+    @apply flex flex-col md:flex-row gap-4 md:gap-6 cursor-pointer;
+  }
+
+  .video-item:hover .video-thumbnail {
+    @apply scale-105;
+  }
+}
+
+@layer utilities {
+  /* Text balance for headlines */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Hide scrollbar */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>Admin – Descoperă Valea</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/admin/admin-dark.css" />
+  </head>
+  <body>
+    <!--
+      Sveltia CMS admin panel
+      - Local workflow: uses the same config.yml and your local Git repo
+      - Live mode: uses GitHub backend configured in config.yml
+
+      Docs: https://sveltiacms.app/en/docs/start
+    -->
+    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+    <script>
+      (function () {
+        var SPACING = '16px';
+        function addCollectionSpacing() {
+          var sidebar = null;
+          function findSidebar(el) {
+            if (!el || el.nodeType !== 1) return;
+            if ((el.textContent || '').indexOf('Collections') !== -1 && (el.textContent || '').indexOf('Galerie foto') !== -1) {
+              var p = el;
+              for (var i = 0; i < 8 && p; i++) {
+                if ((p.textContent || '').indexOf('Galerie foto') !== -1 && (p.textContent || '').indexOf('Pagini site') !== -1 &&
+                    (p.textContent || '').length < 500) { sidebar = p; return; }
+                p = p.parentElement;
+              }
+            }
+            for (var j = 0; j < el.children.length; j++) findSidebar(el.children[j]);
+          }
+          findSidebar(document.body);
+          if (!sidebar) return;
+          var rows = [];
+          function collect(el, depth) {
+            if (!el || el.nodeType !== 1 || depth > 15) return;
+            var text = (el.textContent || '').trim();
+            if (text === 'Galerie foto' || text === 'Video' || text === 'Blog' || text === 'Pagini site') {
+              var row = el.closest('a') || el.parentElement;
+              if (row && rows.indexOf(row) === -1) rows.push(row);
+              return;
+            }
+            for (var i = 0; i < el.children.length; i++) collect(el.children[i], depth + 1);
+          }
+          collect(sidebar, 0);
+          if (rows.length < 2) return;
+          rows.forEach(function (row, i) {
+            row.classList.add('dv-collection-item');
+            if (i > 0) row.style.setProperty('margin-top', SPACING, 'important');
+            row.style.setProperty('display', 'block', 'important');
+          });
+          var container = rows[0].parentElement;
+          if (container && !container.classList.contains('dv-collection-list')) {
+            container.classList.add('dv-collection-list');
+            container.style.setProperty('display', 'flex', 'important');
+            container.style.setProperty('flex-direction', 'column', 'important');
+            container.style.setProperty('gap', SPACING, 'important');
+          }
+        }
+        function run() { addCollectionSpacing(); }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+        else run();
+        [200, 500, 1200, 2500, 4000].forEach(function (ms) { setTimeout(run, ms); });
+        var iv = setInterval(run, 600);
+        setTimeout(function () { clearInterval(iv); }, 10000);
+      })();
+    </script>
+  </body>
+</html>
+
+

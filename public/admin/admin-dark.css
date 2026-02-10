@@ -1,0 +1,180 @@
+/* Tema dark a site-ului Descoperă Valea – aplicată la admin Sveltia */
+/* Paletă: deep forest night + sage green (din src/index.css .dark) */
+
+html,
+body,
+#root,
+[data-sveltia-cms],
+.nc-root {
+  background-color: hsl(200 15% 8%) !important;
+  color: hsl(40 15% 92%) !important;
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* Sidebar / navigation – același ca site */
+[class*="sidebar"],
+[class*="Sidebar"],
+aside,
+nav[class*="sidebar"] {
+  background-color: hsl(200 12% 10%) !important;
+  border-color: hsl(200 10% 18%) !important;
+  color: hsl(40 12% 85%) !important;
+}
+
+/* Carduri, panouri, inputuri */
+[class*="card"],
+[class*="Card"],
+[class*="panel"],
+[class*="Panel"] {
+  background-color: hsl(200 12% 12%) !important;
+  color: hsl(40 15% 92%) !important;
+  border-color: hsl(200 10% 18%) !important;
+}
+
+input,
+textarea,
+select,
+[contenteditable="true"] {
+  background-color: hsl(200 10% 18%) !important;
+  color: hsl(40 15% 92%) !important;
+  border-color: hsl(200 10% 18%) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: hsl(40 8% 55%) !important;
+}
+
+/* Butoane primare – sage green (primary site) */
+button[class*="primary"],
+[class*="Button"][class*="primary"],
+a[class*="primary"],
+a[role="button"][class*="primary"] {
+  background-color: hsl(150 20% 60%) !important;
+  color: hsl(200 15% 8%) !important;
+  border-color: hsl(150 20% 60%) !important;
+}
+
+button[class*="primary"]:hover,
+[class*="Button"][class*="primary"]:hover {
+  filter: brightness(1.1);
+}
+
+/* Butoane secundare / outline – secondary site */
+button:not([class*="primary"]),
+[class*="Button"]:not([class*="primary"]) {
+  background-color: hsl(200 10% 18%) !important;
+  color: hsl(40 12% 85%) !important;
+  border-color: hsl(200 10% 18%) !important;
+}
+
+button:hover,
+[class*="Button"]:hover {
+  background-color: hsl(200 10% 22%) !important;
+}
+
+/* Linkuri – sage green ca accent */
+a {
+  color: hsl(150 20% 60%) !important;
+}
+
+a:hover {
+  color: hsl(150 25% 70%) !important;
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+  color: hsl(40 15% 92%) !important;
+}
+
+/* Text mutat */
+[class*="muted"],
+[class*="Muted"],
+[class*="hint"],
+[class*="description"] {
+  color: hsl(40 8% 55%) !important;
+}
+
+/* Borduri */
+hr,
+[class*="border"],
+[class*="divider"] {
+  border-color: hsl(200 10% 18%) !important;
+}
+
+/* Focus ring – primary */
+*:focus-visible {
+  outline-color: hsl(150 20% 60%);
+}
+
+/* Scrollbar – nuanțe din tema site */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(200 12% 10%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(200 10% 18%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(200 10% 25%);
+}
+
+/* Folderele din Collections – carduri (clase adăugate de script din index.html) */
+
+.dv-collection-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem !important;
+}
+
+.dv-collection-item {
+  display: block !important;
+  padding: 0.75rem 1rem !important;
+  background-color: hsl(200 12% 12%) !important;
+  border: 1px solid hsl(200 10% 18%) !important;
+  border-radius: 0.5rem !important;
+  color: hsl(40 15% 92%) !important;
+  text-decoration: none !important;
+  transition: background-color 0.2s, border-color 0.2s !important;
+}
+
+.dv-collection-item:hover {
+  background-color: hsl(200 10% 18%) !important;
+  border-color: hsl(150 20% 60%) !important;
+  color: hsl(40 15% 92%) !important;
+}
+
+.dv-collection-item + .dv-collection-item {
+  margin-top: 0 !important;
+}
+
+/* Spațiu între rândurile din lista Collections – structura Sveltia (svelte-*, sui) */
+[aria-label*="Collection"] a[href*="collections/"],
+.wrapper a[href*="collections/"],
+[class*="svelte"] a[href*="collections/"] {
+  display: block !important;
+  margin-top: 0.75rem !important;
+}
+
+[aria-label*="Collection"] a[href*="collections/"]:first-of-type,
+.wrapper a[href*="collections/"]:first-of-type {
+  margin-top: 0 !important;
+}
+
+/* Container care conține linkurile la colecții – gap */
+[role="group"]:has(> a[href*="collections/"]),
+[class*="wrapper"]:has(> a[href*="collections/"]) {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.75rem !important;
+}

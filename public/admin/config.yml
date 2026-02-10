@@ -1,0 +1,101 @@
+backend:
+  name: github
+  repo: descoperavalea/descoperavalea.github.io
+  branch: main
+  base_url: https://sveltia-cms-auth-web-desaval.workers.dev
+
+# local_backend nu e suportat în Sveltia CMS (era din Netlify/Decap) – lăsat comentat
+# local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+# Personalizare pagină logare și admin
+site_url: /
+display_url: /
+logo:
+  src: /favicon.ico
+  show_in_header: true
+# logout_redirect_url: /
+
+collections:
+  - name: "gallery"
+    label: "Galerie foto"
+    label_singular: "Imagine"
+    description: "Galeria foto principală (best of)"
+    format: "json"
+    files:
+      - file: "content/gallery.json"
+        label: "Imagini galerie"
+        name: "items"
+        fields:
+          - { name: "items", label: "Imagini", label_singular: "Imagine", widget: "list", collapsed: false, fields: [
+              { name: "image", label: "Imagine", widget: "image" },
+              { name: "title", label: "Titlu", widget: "string" },
+              { name: "location", label: "Locație", widget: "string", required: false },
+              { name: "dateAdded", label: "Dată adăugare", widget: "datetime" }
+            ] }
+
+  - name: "videos"
+    label: "Video"
+    label_singular: "Clip video"
+    description: "Lista de clipuri video"
+    format: "json"
+    files:
+      - file: "content/videos.json"
+        label: "Clipuri video"
+        name: "items"
+        fields:
+          - { name: "items", label: "Clipuri", label_singular: "Clip", widget: "list", collapsed: false, fields: [
+              { name: "videoUrl", label: "URL Video (YouTube/Vimeo)", widget: "string" },
+              { name: "title", label: "Titlu", widget: "string" },
+              { name: "thumbnail", label: "Thumbnail", widget: "image" },
+              { name: "duration", label: "Durată (ex. 4:32)", widget: "string", required: false },
+              { name: "seoTitle", label: "SEO title", widget: "string", required: false },
+              { name: "seoDescription", label: "SEO description", widget: "text", required: false },
+              { name: "dateAdded", label: "Dată adăugare", widget: "datetime" }
+            ] }
+
+  - name: "blog"
+    label: "Blog"
+    label_singular: "Articol"
+    description: "Articolele blogului"
+    folder: "content/blog"
+    create: true
+    slug: "{{slug}}"
+    format: "frontmatter"
+    extension: "md"
+    fields:
+      - { name: "title", label: "Titlu", widget: "string" }
+      - { name: "slug", label: "Slug (URL)", widget: "string" }
+      - { name: "cover", label: "Imagine cover", widget: "image", required: false }
+      - { name: "seoTitle", label: "SEO title", widget: "string", required: false }
+      - { name: "seoDescription", label: "SEO description", widget: "text", required: false }
+      - { name: "dateAdded", label: "Dată adăugare", widget: "datetime" }
+      - { name: "body", label: "Conținut", widget: "markdown" }
+
+  - name: "seo"
+    label: "Pagini site"
+    label_singular: "Pagină"
+    description: "Setează SEO și Open Graph pentru fiecare pagină (titlu, description, og:title, og:description, og:image)."
+    format: "json"
+    files:
+      - file: "content/seo.json"
+        label: "SEO & Open Graph per pagină"
+        name: "seo"
+        fields:
+          - name: "pages"
+            label: "Pagini site"
+            label_singular: "Pagină"
+            widget: "list"
+            summary: "{{path}} – {{title}}"
+            hint: "O intrare per pagină. Path = calea din site (/, /despre, /galerie, /video, /blog, /contact)."
+            fields:
+              - { name: "path", label: "Cale pagină (path)", widget: "string", hint: "Ex: /, /despre, /galerie, /video, /blog, /contact" }
+              - { name: "title", label: "Titlu pagină (SEO)", widget: "string", hint: "Apare în tab-ul browser și în rezultatele de căutare" }
+              - { name: "description", label: "Meta description (SEO)", widget: "text", required: false, hint: "Descriere scurtă pentru motoare de căutare" }
+              - { name: "ogTitle", label: "Open Graph – titlu", widget: "string", required: false, hint: "Titlu când se partajează linkul (ex. Facebook)" }
+              - { name: "ogDescription", label: "Open Graph – description", widget: "text", required: false, hint: "Descriere pentru partajare pe rețele sociale" }
+              - { name: "ogImage", label: "Open Graph – imagine", widget: "image", required: false, hint: "Imagine la partajare (recomandat 1200×630 px)" }
+              - { name: "index", label: "Indexare (Google)", widget: "boolean", default: true, hint: "Dacă e dezactivat, se adaugă noindex,nofollow pentru această pagină." }
+

@@ -1,0 +1,58 @@
+{
+  "pages": [
+    {
+      "path": "/",
+      "title": "Descoperă Valea",
+      "description": "Jurnal editorial despre natură, peisaje și experiențe 4x4 din Valea Jiului.",
+      "ogTitle": "",
+      "ogDescription": "",
+      "ogImage": "",
+      "index": true
+    },
+    {
+      "path": "/despre",
+      "title": "Despre",
+      "description": "Despre proiectul Descoperă Valea și Valea Jiului.",
+      "ogTitle": "",
+      "ogDescription": "",
+      "ogImage": "",
+      "index": true
+    },
+    {
+      "path": "/galerie",
+      "title": "Galerie",
+      "description": "Galerie foto din Valea Jiului.",
+      "ogTitle": "",
+      "ogDescription": "",
+      "ogImage": "",
+      "index": true
+    },
+    {
+      "path": "/video",
+      "title": "Video",
+      "description": "Video din Valea Jiului.",
+      "ogTitle": "",
+      "ogDescription": "",
+      "ogImage": "",
+      "index": true
+    },
+    {
+      "path": "/blog",
+      "title": "Blog",
+      "description": "Articole și povesti din Valea Jiului.",
+      "ogTitle": "",
+      "ogDescription": "",
+      "ogImage": "",
+      "index": true
+    },
+    {
+      "path": "/contact",
+      "title": "Contact",
+      "description": "Contact Descoperă Valea.",
+      "ogTitle": "",
+      "ogDescription": "",
+      "ogImage": "",
+      "index": true
+    }
+  ]
+}

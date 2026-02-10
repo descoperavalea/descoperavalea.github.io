@@ -1,0 +1,59 @@
+{
+  "items": [
+    {
+      "image": "hero-landscape",
+      "title": "Panoramă Valea Jiului",
+      "location": "Parâng",
+      "dateAdded": "2026-01-20T08:00:00.000Z"
+    },
+    {
+      "image": "gallery-forest-trail",
+      "title": "Poteca din pădure",
+      "location": "Petrila",
+      "dateAdded": "2026-01-19T08:00:00.000Z"
+    },
+    {
+      "image": "gallery-4x4-adventure",
+      "title": "Aventură 4x4",
+      "location": "Parâng",
+      "dateAdded": "2026-01-18T08:00:00.000Z"
+    },
+    {
+      "image": "gallery-mountain-stream",
+      "title": "Pârâul de munte",
+      "location": "Retezat",
+      "dateAdded": "2026-01-17T08:00:00.000Z"
+    },
+    {
+      "image": "gallery-peak-view",
+      "title": "Vedere de pe creastă",
+      "location": "Vârful Parângu Mare",
+      "dateAdded": "2026-01-16T08:00:00.000Z"
+    },
+    {
+      "image": "gallery-mountain-road",
+      "title": "Drum forestier",
+      "location": "Lupeni",
+      "dateAdded": "2026-01-15T08:00:00.000Z"
+    },
+    {
+      "image": "gallery-forest-trail",
+      "title": "Lumină prin copaci",
+      "location": "Straja",
+      "dateAdded": "2026-01-14T08:00:00.000Z"
+    },
+    {
+      "image": "hero-landscape",
+      "title": "Dimineață cu ceață",
+      "location": "Petroșani",
+      "dateAdded": "2026-01-13T08:00:00.000Z"
+    },
+    {
+      "image": "gallery-peak-view",
+      "title": "Apus montan",
+      "location": "Retezat",
+      "dateAdded": "2026-01-12T08:00:00.000Z"
+    }
+  ]
+}
+
