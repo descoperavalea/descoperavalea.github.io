@@ -2,8 +2,7 @@ backend:
   name: github
   repo: descoperavalea/descoperavalea.github.io
   branch: main
-  base_url: https://github.com
-  auth_endpoint: auth
+  base_url: https://sveltia-cms-auth-web-desaval.workers.dev
 
 # local_backend nu e suportat în Sveltia CMS (era din Netlify/Decap) – lăsat comentat
 # local_backend: true
