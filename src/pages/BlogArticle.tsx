@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { Layout } from "@/components/Layout";
-import { ArrowLeft } from "lucide-react";
-import { getBlogPostBySlug } from "@/lib/content";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { getBlogPostBySlug, getAllBlogMeta } from "@/lib/content";
 
 const SANITIZE_OPTIONS: DOMPurify.Config = {
   ALLOWED_TAGS: [
@@ -32,7 +32,7 @@ export default function BlogArticle() {
               className="inline-flex items-center gap-2 text-primary hover:underline"
             >
               <ArrowLeft className="w-4 h-4" />
-              Înapoi la blog
+              Înapoi la Trasee
             </Link>
           </div>
         </section>
@@ -48,6 +48,10 @@ export default function BlogArticle() {
     };
   }, [article.seoTitle, article.title]);
 
+  const latestThree = getAllBlogMeta()
+    .filter((a) => a.slug !== article.slug)
+    .slice(0, 3);
+
   return (
     <Layout>
       {/* Header */}
@@ -58,7 +62,7 @@ export default function BlogArticle() {
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
-            Înapoi la blog
+            Înapoi la Trasee
           </Link>
           
           <div className="max-w-3xl">
@@ -102,6 +106,60 @@ export default function BlogArticle() {
           />
         </div>
       </section>
+
+      {/* Ultimele 3 articole */}
+      {latestThree.length > 0 && (
+          <section className="section-space bg-secondary/30 border-t border-border/50">
+            <div className="container-editorial">
+              <h2 className="mb-8 md:mb-12">Alte trasee</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {latestThree.map((item) => (
+                  <Link
+                    key={item.slug}
+                    to={`/blog/${item.slug}`}
+                    className="article-card group block"
+                  >
+                    <div className="aspect-[3/2] overflow-hidden rounded-xl mb-4">
+                      <img
+                        src={item.cover}
+                        alt={item.title}
+                        className="w-full h-full object-cover image-hover"
+                      />
+                    </div>
+                    <span className="caption block mb-2">
+                      {new Date(item.dateAdded).toLocaleDateString("ro-RO", {
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </span>
+                    <h3 className="font-serif text-xl mb-2 group-hover:text-primary transition-colors">
+                      {item.title}
+                    </h3>
+                    {item.seoDescription && (
+                      <p className="text-sm text-muted-foreground line-clamp-2">
+                        {item.seoDescription}
+                      </p>
+                    )}
+                    <span className="inline-flex items-center gap-2 text-sm font-medium mt-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                      Citește
+                      <ArrowRight className="w-4 h-4" />
+                    </span>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-10 text-center">
+                <Link
+                  to="/blog"
+                  className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
+                >
+                  Toate traseele
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          </section>
+      )}
     </Layout>
   );
 }

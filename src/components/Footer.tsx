@@ -45,9 +45,9 @@ export function Footer() {
           <p>© {new Date().getFullYear()} Descoperă Valea</p>
           <nav className="flex flex-wrap gap-x-6 gap-y-2">
             <Link to="/despre" className="hover:text-primary transition-colors">Despre</Link>
+            <Link to="/blog" className="hover:text-primary transition-colors">Trasee</Link>
             <Link to="/galerie" className="hover:text-primary transition-colors">Galerie</Link>
             <Link to="/video" className="hover:text-primary transition-colors">Video</Link>
-            <Link to="/blog" className="hover:text-primary transition-colors">Blog</Link>
             <Link to="/contact" className="hover:text-primary transition-colors">Contact</Link>
           </nav>
         </div>

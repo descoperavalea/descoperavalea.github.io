@@ -129,7 +129,7 @@ export default function Home() {
         <div className="container-editorial">
           <div className="flex items-end justify-between mb-8 md:mb-12">
             <div>
-              <span className="caption block mb-2">Blog</span>
+              <span className="caption block mb-2">Trasee</span>
               <h2>Articole recente</h2>
             </div>
             <Link 

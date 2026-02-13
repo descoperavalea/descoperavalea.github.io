@@ -39,7 +39,7 @@ export function HeroVideo({
   const hasMobileVideo = mobileVideoUrl && mobileVideoUrl.length > 0;
 
   return (
-    <div className="hero-video-wrapper rounded-xl overflow-hidden">
+    <div className="hero-video-wrapper overflow-hidden">
       {/* Desktop Video (16:9) */}
       {hasDesktopVideo ? (
         <video

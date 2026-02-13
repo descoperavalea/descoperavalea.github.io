@@ -23,7 +23,7 @@ export default function Blog() {
       {/* Header */}
       <section className="pt-24 md:pt-32 pb-8 md:pb-12">
         <div className="container-editorial">
-          <span className="caption block mb-4">Blog</span>
+          <span className="caption block mb-4">Trasee</span>
           <h1>Povești din natură</h1>
         </div>
       </section>

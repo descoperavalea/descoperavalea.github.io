@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { X, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "/", label: "Acasă" },
   { href: "/despre", label: "Despre" },
+  { href: "/blog", label: "Trasee" },
   { href: "/galerie", label: "Galerie" },
   { href: "/video", label: "Video" },
-  { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -19,6 +19,28 @@ const socialLinks = [
 ];
 
 const THEME_STORAGE_KEY = "descopera-valea-theme";
+
+/** Icoană hamburger: linii subtiri, lungi – sus lungă, mijloc mai scurtă, jos egală cu sus, aliniate la dreapta */
+function HamburgerIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="8" y1="12" x2="20" y2="12" />
+      <line x1="4" y1="18" x2="20" y2="18" />
+    </svg>
+  );
+}
 
 function getInitialDarkMode() {
   if (typeof window === "undefined") {
@@ -40,7 +62,10 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState<boolean>(() => getInitialDarkMode());
   const [isScrolled, setIsScrolled] = useState(false);
+  const [navIndicator, setNavIndicator] = useState({ left: 0, width: 0 });
   const location = useLocation();
+  const navRef = useRef<HTMLDivElement>(null);
+  const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,6 +78,29 @@ export function Header() {
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
+
+  // Poziționare linie sub linkul activ (desktop)
+  useEffect(() => {
+    const container = navRef.current;
+    if (!container) return;
+    const activeIndex = navLinks.findIndex(
+      (link) =>
+        location.pathname === link.href ||
+        (link.href !== "/" && location.pathname.startsWith(link.href))
+    );
+    const el = activeIndex >= 0 ? linkRefs.current[activeIndex] : null;
+    if (!el) {
+      setNavIndicator({ left: 0, width: 0 });
+      return;
+    }
+    const rect = el.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    const extra = 8; // linia cu 8px mai lungă pe fiecare parte
+    setNavIndicator({
+      left: rect.left - containerRect.left - extra / 2,
+      width: rect.width + extra,
+    });
+  }, [location.pathname]);
 
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -80,60 +128,82 @@ export function Header() {
           "fixed top-0 left-0 right-0 z-40 transition-all duration-500",
           isScrolled
             ? "bg-background/90 backdrop-blur-md border-b border-border"
-            : "bg-transparent",
+            : "bg-[linear-gradient(to_bottom,hsl(var(--background)/0.55)_0%,hsl(var(--background)/0.5)_40%,transparent_100%)] backdrop-blur-sm",
         )}
       >
         <nav className="container-editorial">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center justify-between h-20 md:h-24">
             {/* Logo */}
-            <Link 
-              to="/" 
-              className="font-serif text-xl md:text-2xl tracking-tight hover:text-primary transition-colors"
+            <Link
+              to="/"
+              className="flex items-center min-w-0 max-w-[300px] md:max-w-[400px] hover:opacity-90 transition-opacity py-1"
+              aria-label="Descoperă Valea - Acasă"
             >
-              Descoperă Valea
+              <img
+                src={`${import.meta.env.BASE_URL}logo.svg`}
+                alt="Descoperă Valea"
+                className="max-h-9 md:max-h-12 w-auto max-w-full object-contain object-left invert dark:invert-0 dark:opacity-90"
+              />
             </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className={cn(
-                    "text-sm tracking-wide transition-colors hover:text-primary",
-                    location.pathname === link.href
-                      ? "text-primary"
-                      : "text-muted-foreground",
-                  )}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              
+              <div ref={navRef} className="relative flex items-center gap-8">
+                {navLinks.map((link, index) => {
+                  const isActive =
+                    location.pathname === link.href ||
+                    (link.href !== "/" && location.pathname.startsWith(link.href));
+                  return (
+                    <Link
+                      key={link.href}
+                      ref={(el) => {
+                        linkRefs.current[index] = el;
+                      }}
+                      to={link.href}
+                      className={cn(
+                        "relative pb-2.5 text-sm tracking-wide transition-colors hover:text-primary",
+                        isActive ? "text-primary" : "text-muted-foreground",
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
+                {/* Linie animată sub pagina selectată */}
+                <span
+                  className="absolute -bottom-1 left-0 h-0.5 bg-primary rounded-full"
+                  style={{
+                    width: navIndicator.width,
+                    transform: `translateX(${navIndicator.left}px)`,
+                    transition: "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  }}
+                />
+              </div>
+
               {/* Theme Toggle */}
               <button
                 onClick={() => setIsDark(!isDark)}
-                className="p-2 hover:bg-muted rounded-full transition-colors"
+                className="p-2 hover:bg-muted rounded-full transition-colors text-foreground"
                 aria-label="Toggle theme"
               >
-                {isDark ? (
-                  <Sun className="w-4 h-4" />
-                ) : (
-                  <Moon className="w-4 h-4" />
-                )}
+{isDark ? (
+                <Sun className="w-6 h-6" />
+              ) : (
+                <Moon className="w-6 h-6" />
+              )}
               </button>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 hover:bg-muted rounded-lg transition-colors"
+              className="md:hidden p-2 -mr-4 text-foreground hover:opacity-80 transition-opacity"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
-                <X className="w-5 h-5" />
+                <X className="w-7 h-7" />
               ) : (
-                <Menu className="w-5 h-5" />
+                <HamburgerIcon className="w-7 h-7" />
               )}
             </button>
           </div>
@@ -198,7 +268,7 @@ export function Header() {
           <button
             onClick={() => setIsDark(!isDark)}
             className={cn(
-              "flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-all duration-300",
+              "flex items-center gap-2 text-sm text-foreground hover:text-primary transition-all duration-300",
               isMenuOpen
                 ? "translate-y-0 opacity-100"
                 : "translate-y-4 opacity-0",
@@ -207,12 +277,12 @@ export function Header() {
           >
             {isDark ? (
               <>
-                <Sun className="w-4 h-4" />
+                <Sun className="w-6 h-6" />
                 <span>Light Mode</span>
               </>
             ) : (
               <>
-                <Moon className="w-4 h-4" />
+                <Moon className="w-6 h-6" />
                 <span>Dark Mode</span>
               </>
             )}
