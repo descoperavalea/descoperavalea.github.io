@@ -125,7 +125,8 @@ export function Header() {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-40 transition-all duration-500",
+          "fixed top-0 left-0 right-0 z-40 transition-all duration-500 md:opacity-100",
+          isMenuOpen && "opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto",
           isScrolled
             ? "bg-background/90 backdrop-blur-md border-b border-border"
             : "bg-[linear-gradient(to_bottom,hsl(var(--background)/0.55)_0%,hsl(var(--background)/0.5)_40%,transparent_100%)] backdrop-blur-sm",
@@ -136,13 +137,13 @@ export function Header() {
             {/* Logo */}
             <Link
               to="/"
-              className="flex items-center min-w-0 max-w-[300px] md:max-w-[400px] hover:opacity-90 transition-opacity py-1"
+              className="flex items-center min-w-0 max-w-[340px] md:max-w-[400px] hover:opacity-90 transition-opacity py-1"
               aria-label="Descoperă Valea - Acasă"
             >
               <img
                 src={`${import.meta.env.BASE_URL}logo.svg`}
                 alt="Descoperă Valea"
-                className="max-h-9 md:max-h-12 w-auto max-w-full object-contain object-left invert dark:invert-0 dark:opacity-90"
+                className="max-h-11 md:max-h-12 w-auto max-w-full object-contain object-left invert dark:invert-0 dark:opacity-90"
               />
             </Link>
 
@@ -201,24 +202,31 @@ export function Header() {
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
-                <X className="w-7 h-7" />
+                <X className="w-8 h-8 md:w-7 md:h-7" />
               ) : (
-                <HamburgerIcon className="w-7 h-7" />
+                <HamburgerIcon className="w-8 h-8 md:w-7 md:h-7" />
               )}
             </button>
           </div>
         </nav>
       </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay – full screen, peste tot; închidere din overlay */}
       <div
         className={cn(
-          "fixed inset-0 z-30 bg-background transition-all duration-500 md:hidden",
+          "fixed inset-0 z-50 bg-background transition-all duration-500 md:hidden",
           isMenuOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none",
         )}
       >
+        <button
+          onClick={() => setIsMenuOpen(false)}
+          className="absolute top-6 right-6 p-2 text-foreground hover:opacity-80 transition-opacity"
+          aria-label="Închide meniul"
+        >
+          <X className="w-8 h-8" />
+        </button>
         <div className="flex flex-col items-center justify-center h-full gap-8">
           {navLinks.map((link, index) => (
             <Link
